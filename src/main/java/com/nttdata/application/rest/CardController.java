@@ -86,5 +86,35 @@ public class CardController {
     }
 
   }
+  @POST
+  @Path("/search/card")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getByNumberCard(CardDto cardDto) {
+
+    ResponseDto responseDto = new ResponseDto();
+    List<Card> listCard = cardService.getAllCard()
+        .stream()
+        .filter(card ->card.getActive().equals("S"))
+        .filter(cb -> cb.getNumberCard().equals(cardDto.getNumberCard()))
+        .filter(c -> c.getNumberAccountAssociated().equals(cardDto.getNumberAccountAssociated()))
+        .filter(a -> a.getCodeValidation().equals(cardDto.getCodeValidation()))
+        .filter(s -> s.getDueDate().equals(cardDto.getDueDate()))
+        .filter(x -> x.getPin().equals(cardDto.getPin()))
+        .collect(Collectors.toList());
+
+    if(listCard.size() == 0){
+      responseDto.setStatus("204");
+      responseDto.setMessage("not content card");
+      responseDto.setCard(listCard);
+    }else{
+      responseDto.setStatus("200");
+      responseDto.setMessage("Se Proceso Correctamente");
+      responseDto.setCard(listCard);
+    }
+    System.out.println(listCard);
+
+    return Response.ok(responseDto).status(200).build();
+  }
+
 
 }

@@ -33,6 +33,7 @@ public class CardRepositoryImpl implements CardRepository {
     Card card = new Card();
     System.out.println(cardDto);
     card.setNumberCard(cardDto.getNumberCard());
+    card.setNumberAccountAssociated(cardDto.getNumberAccountAssociated());
     card.setTypeCard(cardDto.getTypeCard());
     card.setCodeValidation(cardDto.getCodeValidation());
     card.setPin(cardDto.getPin());
@@ -58,6 +59,7 @@ public class CardRepositoryImpl implements CardRepository {
       if(customerOp.getActive().equals("S")){
         customerOp.setTypeCard(cardDto.getTypeCard());
         customerOp.setNumberCard(cardDto.getNumberCard());
+        customerOp.setNumberAccountAssociated(cardDto.getNumberAccountAssociated());
         customerOp.setPin(cardDto.getPin());
         customerOp.setDueDate(cardDto.getDueDate());
         customerOp.setCodeValidation(cardDto.getCodeValidation());
